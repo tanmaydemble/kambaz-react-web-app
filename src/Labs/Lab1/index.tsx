@@ -1,6 +1,9 @@
 export default function Lab1() {
     return (
         <div id="wd-lab1">
+            <h2>Name: Tanmay Demble</h2>
+            <h2>Section: 2</h2>
+            <a href="https://github.com/tanmaydemble/kambaz-react-web-app">Link to source code</a>
             <h2>Lab 1</h2>
             <h3>HTML Examples</h3>
             <div id="wd-h-tag">
