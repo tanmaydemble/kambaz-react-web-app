@@ -18,7 +18,8 @@ export default function AssignmentEditor() {
                 The Kambaz application should include a link to navigate back to the landing page.
             </textarea>
             <br />
-            <table>
+            <br />
+            <table width="100%">
                 <tr>
                     <td align="right">
                         <label htmlFor="wd-points">Points</label>
@@ -27,6 +28,7 @@ export default function AssignmentEditor() {
                         <input id="wd-points" value={100} />
                     </td>
                 </tr>
+                <br />
                 <tr>
                     <td valign="top" align="right">
                         <label htmlFor="wd-points">Assignment Group</label>
@@ -37,6 +39,7 @@ export default function AssignmentEditor() {
                         </select>
                     </td>
                 </tr>
+                <br />
                 <tr>
                     <td valign="top" align="right">
                         <label htmlFor="wd-points">Display Grade as </label>
@@ -47,6 +50,7 @@ export default function AssignmentEditor() {
                         </select>
                     </td>
                 </tr>
+                <br />
                 <tr>
                     <td valign="top" align="right">
                         <label htmlFor="wd-points">Submission type </label>
@@ -57,34 +61,39 @@ export default function AssignmentEditor() {
                         </select>
                     </td>
                 </tr>
+                <br />
                 <tr>
-                    Online Entry Options <br />
-                    <input type="checkbox" name="online-entry-options" id="wd-text-entry" />
-                    <label htmlFor="wd-text-entry">Text Entry </label><br />
+                    <td></td>
+                    <td>
+                        Online Entry Options <br />
+                        <input type="checkbox" name="online-entry-options" id="wd-text-entry" />
+                        <label htmlFor="wd-text-entry">Text Entry </label><br />
 
-                    <input type="checkbox" name="online-entry-options" id="wd-website-url" />
-                    <label htmlFor="wd-website-url">Website URL</label><br />
+                        <input type="checkbox" name="online-entry-options" id="wd-website-url" />
+                        <label htmlFor="wd-website-url">Website URL</label><br />
 
-                    <input type="checkbox" name="online-entry-options" id="wd-media-recordings" />
-                    <label htmlFor="wd-media-recordings">Media Recordings</label><br />
+                        <input type="checkbox" name="online-entry-options" id="wd-media-recordings" />
+                        <label htmlFor="wd-media-recordings">Media Recordings</label><br />
 
-                    <input type="checkbox" name="online-entry-options" id="wd-student-annotation" />
-                    <label htmlFor="wd-student-annotation">Student Annotation</label><br />
+                        <input type="checkbox" name="online-entry-options" id="wd-student-annotation" />
+                        <label htmlFor="wd-student-annotation">Student Annotation</label><br />
 
-                    <input type="checkbox" name="online-entry-options" id="wd-file-upload" />
-                    <label htmlFor="wd-file-upload">File Uploads</label>
+                        <input type="checkbox" name="online-entry-options" id="wd-file-upload" />
+                        <label htmlFor="wd-file-upload">File Uploads</label>
+                    </td>
                 </tr>
+                <br />
                 <tr>
                     <td align="right">
                         <label>Assign </label>
                     </td>
                     <td>
-                        Assign to
+                        Assign to <br />
                     </td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td align="right">
+                    <td>
                         <input id="wd-assign-to" value="Everyone" />
                     </td>
                 </tr>
@@ -99,34 +108,36 @@ export default function AssignmentEditor() {
                 </tr>
                 <tr>
                     <td></td>
-
-                    <td>
-                        Available from<br />
-                        <input type="date"
-                            value="2024-05-06"
-                            id="wd-available-from" />
-
-
-                    </td>
-                    <td>
-                        Until<br />
-                        <input type="date"
-                            value="2024-05-20"
-                            id="wd-available-until" />
+                    <table>
+                        <tr>
+                            <td>Available from</td>
+                            <td>Until</td>
+                        </tr>
+                        <tr>
+                            <td><input type="date"
+                                value="2024-05-06"
+                                id="wd-available-from" />
+                            </td>
+                            <td>
+                                <input type="date"
+                                    value="2024-05-20"
+                                    id="wd-available-until" />
+                            </td>
+                        </tr>
+                    </table>
+                </tr>
+                <tr>
+                    <td colSpan={2}>
+                        <hr />
                     </td>
                 </tr>
-                {/* Complete on your own */}
-            </table>
-            <hr />
-            <table>
                 <tr>
-                    <td align="right">
+                    <td align="right" colSpan={2}>
                         <button>Cancel</button>
                         <button>Save</button>
                     </td>
                 </tr>
             </table>
-
         </div>
     );
 }

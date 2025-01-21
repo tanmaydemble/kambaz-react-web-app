@@ -1,7 +1,6 @@
 export default function Modules() {
     return (
         <div>
-            {/* Implement Collapse All button, View Progress button, etc. */}
             <button>Collapse All</button>
             <button>View Progress</button>
             <select>
