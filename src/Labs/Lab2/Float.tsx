@@ -1,0 +1,43 @@
+export default function Float() {
+    return (<div id="wd-float-divs">
+        <h2>Float</h2>
+        <div>
+            <img className="wd-float-right"
+                src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" />
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec mollis odio. Curabitur ullamcorper magna ipsum, non dictum tortor placerat sit amet. Suspendisse et vulputate eros. Suspendisse vitae fermentum ipsum, sed semper massa. Integer at tempus eros. Pellentesque ut magna quis mi iaculis sodales. Integer volutpat sapien sed venenatis porta. Nullam libero lorem, viverra sed hendrerit sollicitudin, consectetur nec odio. Mauris eleifend quam at est pellentesque volutpat. Phasellus ut est diam. Cras mollis ligula a dolor efficitur ullamcorper. Curabitur pulvinar, lectus et semper fringilla, justo nibh elementum mauris, sed fringilla metus neque vitae nisl. Nam consequat libero mollis, auctor lectus ut, lobortis nunc. Praesent et turpis pharetra, molestie sapien et, porttitor risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer posuere fringilla ex, at cursus leo scelerisque sed.
+
+            Vivamus vitae tincidunt nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam in mi a felis pulvinar accumsan in ut diam. Phasellus pellentesque leo vulputate viverra iaculis. Phasellus ac urna nulla. Fusce suscipit, diam at eleifend convallis, metus enim ullamcorper nibh, in congue nisl tortor quis eros. Quisque massa eros, faucibus ac mauris eu, elementum interdum nunc. Suspendisse ullamcorper ligula molestie, tristique enim sed, dictum neque. Fusce tempus diam at rutrum malesuada. Aliquam erat volutpat. Proin volutpat ipsum quis elit aliquam porttitor. Sed eleifend urna non tincidunt mattis. In nec aliquam neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst.
+            <img className="wd-float-left"
+                src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" />
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec mollis odio. Curabitur ullamcorper magna ipsum, non dictum tortor placerat sit amet. Suspendisse et vulputate eros. Suspendisse vitae fermentum ipsum, sed semper massa. Integer at tempus eros. Pellentesque ut magna quis mi iaculis sodales. Integer volutpat sapien sed venenatis porta. Nullam libero lorem, viverra sed hendrerit sollicitudin, consectetur nec odio. Mauris eleifend quam at est pellentesque volutpat. Phasellus ut est diam. Cras mollis ligula a dolor efficitur ullamcorper. Curabitur pulvinar, lectus et semper fringilla, justo nibh elementum mauris, sed fringilla metus neque vitae nisl. Nam consequat libero mollis, auctor lectus ut, lobortis nunc. Praesent et turpis pharetra, molestie sapien et, porttitor risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer posuere fringilla ex, at cursus leo scelerisque sed.
+
+            Vivamus vitae tincidunt nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam in mi a felis pulvinar accumsan in ut diam. Phasellus pellentesque leo vulputate viverra iaculis. Phasellus ac urna nulla. Fusce suscipit, diam at eleifend convallis, metus enim ullamcorper nibh, in congue nisl tortor quis eros. Quisque massa eros, faucibus ac mauris eu, elementum interdum nunc. Suspendisse ullamcorper ligula molestie, tristique enim sed, dictum neque. Fusce tempus diam at rutrum malesuada. Aliquam erat volutpat. Proin volutpat ipsum quis elit aliquam porttitor. Sed eleifend urna non tincidunt mattis. In nec aliquam neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst.
+            <img className="wd-float-right"
+                src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" />
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec mollis odio. Curabitur ullamcorper magna ipsum, non dictum tortor placerat sit amet. Suspendisse et vulputate eros. Suspendisse vitae fermentum ipsum, sed semper massa. Integer at tempus eros. Pellentesque ut magna quis mi iaculis sodales. Integer volutpat sapien sed venenatis porta. Nullam libero lorem, viverra sed hendrerit sollicitudin, consectetur nec odio. Mauris eleifend quam at est pellentesque volutpat. Phasellus ut est diam. Cras mollis ligula a dolor efficitur ullamcorper. Curabitur pulvinar, lectus et semper fringilla, justo nibh elementum mauris, sed fringilla metus neque vitae nisl. Nam consequat libero mollis, auctor lectus ut, lobortis nunc. Praesent et turpis pharetra, molestie sapien et, porttitor risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer posuere fringilla ex, at cursus leo scelerisque sed.
+
+            Vivamus vitae tincidunt nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam in mi a felis pulvinar accumsan in ut diam. Phasellus pellentesque leo vulputate viverra iaculis. Phasellus ac urna nulla. Fusce suscipit, diam at eleifend convallis, metus enim ullamcorper nibh, in congue nisl tortor quis eros. Quisque massa eros, faucibus ac mauris eu, elementum interdum nunc. Suspendisse ullamcorper ligula molestie, tristique enim sed, dictum neque. Fusce tempus diam at rutrum malesuada. Aliquam erat volutpat. Proin volutpat ipsum quis elit aliquam porttitor. Sed eleifend urna non tincidunt mattis. In nec aliquam neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst.
+            <img className="wd-float-left"
+                src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" />
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec mollis odio. Curabitur ullamcorper magna ipsum, non dictum tortor placerat sit amet. Suspendisse et vulputate eros. Suspendisse vitae fermentum ipsum, sed semper massa. Integer at tempus eros. Pellentesque ut magna quis mi iaculis sodales. Integer volutpat sapien sed venenatis porta. Nullam libero lorem, viverra sed hendrerit sollicitudin, consectetur nec odio. Mauris eleifend quam at est pellentesque volutpat. Phasellus ut est diam. Cras mollis ligula a dolor efficitur ullamcorper. Curabitur pulvinar, lectus et semper fringilla, justo nibh elementum mauris, sed fringilla metus neque vitae nisl. Nam consequat libero mollis, auctor lectus ut, lobortis nunc. Praesent et turpis pharetra, molestie sapien et, porttitor risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer posuere fringilla ex, at cursus leo scelerisque sed.
+
+            Vivamus vitae tincidunt nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam in mi a felis pulvinar accumsan in ut diam. Phasellus pellentesque leo vulputate viverra iaculis. Phasellus ac urna nulla. Fusce suscipit, diam at eleifend convallis, metus enim ullamcorper nibh, in congue nisl tortor quis eros. Quisque massa eros, faucibus ac mauris eu, elementum interdum nunc. Suspendisse ullamcorper ligula molestie, tristique enim sed, dictum neque. Fusce tempus diam at rutrum malesuada. Aliquam erat volutpat. Proin volutpat ipsum quis elit aliquam porttitor. Sed eleifend urna non tincidunt mattis. In nec aliquam neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst.
+            <div id="wd-float-divs">
+                <h2>Float</h2>
+                <div>
+                    <div className="wd-float-left wd-dimension-portrait wd-bg-color-yellow">
+                        Yellow </div>
+                    <div className="wd-float-left wd-dimension-portrait wd-bg-color-blue wd-fg-color-white">
+                        Blue </div>
+                    <div className="wd-float-left wd-dimension-portrait wd-bg-color-red">
+                        Red </div>
+                    <img className="wd-float-right"
+                        src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" />
+                    <div className="wd-float-done"></div>
+                </div>
+            </div>
+            <div className="wd-float-done"></div>
+        </div>
+    </div>
+    );
+}
