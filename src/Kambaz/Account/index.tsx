@@ -6,23 +6,16 @@ import Signup from "./Signup";
 
 export default function Account() {
     return (
-        <div id="wd-account-screen">
-            <table>
-                <tr>
-                    <td valign="top">
-                        <AccountNavigation />
-                    </td>
-                    <td valign="top">
-                        <h2>Account</h2>
-                        <Routes>
-                            <Route path="/" element={<Navigate to="/Kambaz/Account/Signin" />} />
-                            <Route path="/Signin" element={<Signin />} />
-                            <Route path="/Profile" element={<Profile />} />
-                            <Route path="/Signup" element={<Signup />} />
-                        </Routes>
-                    </td>
-                </tr>
-            </table>
+        <div id="wd-courses" className="d-flex">
+            <AccountNavigation />
+            <div>
+                <Routes>
+                    <Route path="/" element={<Navigate to="/Kambaz/Account/Signin" />} />
+                    <Route path="/Signin" element={<Signin />} />
+                    <Route path="/Profile" element={<Profile />} />
+                    <Route path="/Signup" element={<Signup />} />
+                </Routes>
+            </div>
         </div>
     );
 }

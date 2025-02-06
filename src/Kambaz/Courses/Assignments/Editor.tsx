@@ -1,143 +1,141 @@
+import { Row, Col, Container } from "react-bootstrap";
+
 export default function AssignmentEditor() {
     return (
-        <div id="wd-assignments-editor">
-            <label htmlFor="wd-name"><h3>Assignment Name</h3></label>
-            <input id="wd-name" value="A1 - ENV + HTML" /><br /><br />
-            <textarea id="wd-description">
-                The assignment is available online.
-                Submit a link to the landing page of your Web application running on Netlify.
+        <Container id="wd-assignments-editor">
+            {/* Assignment Name */}
+            <Row className="mb-3">
+                <Col xs={3} className="text-end">
+                    <label htmlFor="wd-name">Assignment Name</label>
+                </Col>
+                <Col xs={9}>
+                    <input id="wd-name" value="A1 - ENV + HTML" className="form-control" />
+                </Col>
+            </Row>
 
-                The landing page should be the Kambaz application with a link to the Lab exercises.
+            {/* Description Textarea */}
+            <Row className="mb-3">
+                <Col xs={3}></Col>
+                <Col xs={9} >
+                    <textarea id="wd-description" className="form-control" rows={10}>
+                        The assignment is available online.
+                        Submit a link to the landing page of your Web application running on Netlify.
 
-                Lab 1 should be the landing page of the Lab exercises and should include the following:
+                        The landing page should be the Kambaz application with a link to the Lab exercises.
 
-                Your full name and section
-                Links to each of the lab assignments
-                Link to the Kambaz application
-                Links to all relevant source code repositories
-                The Kambaz application should include a link to navigate back to the landing page.
-            </textarea>
-            <br />
-            <br />
-            <table width="100%">
-                <tr>
-                    <td align="right">
-                        <label htmlFor="wd-points">Points</label>
-                    </td>
-                    <td>
-                        <input id="wd-points" value={100} />
-                    </td>
-                </tr>
-                <br />
-                <tr>
-                    <td valign="top" align="right">
-                        <label htmlFor="wd-points">Assignment Group</label>
-                    </td>
-                    <td>
-                        <select id="wd-group">
-                            <option value="ASSIGNMENTS">ASSIGNMENTS</option>
-                        </select>
-                    </td>
-                </tr>
-                <br />
-                <tr>
-                    <td valign="top" align="right">
-                        <label htmlFor="wd-points">Display Grade as </label>
-                    </td>
-                    <td>
-                        <select id="wd-display-grade-as">
-                            <option value="Percentage" >Percentage</option>
-                        </select>
-                    </td>
-                </tr>
-                <br />
-                <tr>
-                    <td valign="top" align="right">
-                        <label htmlFor="wd-points">Submission type </label>
-                    </td>
-                    <td>
-                        <select id="wd-submission-type">
-                            <option value="Percentage">Online</option>
-                        </select>
-                    </td>
-                </tr>
-                <br />
-                <tr>
-                    <td></td>
-                    <td>
-                        Online Entry Options <br />
-                        <input type="checkbox" name="online-entry-options" id="wd-text-entry" />
-                        <label htmlFor="wd-text-entry">Text Entry </label><br />
+                        Lab 1 should be the landing page of the Lab exercises and should include the following:
 
-                        <input type="checkbox" name="online-entry-options" id="wd-website-url" />
-                        <label htmlFor="wd-website-url">Website URL</label><br />
+                        Your full name and section
+                        Links to each of the lab assignments
+                        Link to the Kambaz application
+                        Links to all relevant source code repositories
+                        The Kambaz application should include a link to navigate back to the landing page.
+                    </textarea>
+                </Col>
+            </Row>
 
-                        <input type="checkbox" name="online-entry-options" id="wd-media-recordings" />
-                        <label htmlFor="wd-media-recordings">Media Recordings</label><br />
+            {/* Points Input */}
+            <Row className="mb-3">
+                <Col xs={3} className="text-end">
+                    <label htmlFor="wd-points">Points</label>
+                </Col>
+                <Col xs={9}>
+                    <input id="wd-points" value={100} className="form-control" />
+                </Col>
+            </Row>
 
-                        <input type="checkbox" name="online-entry-options" id="wd-student-annotation" />
-                        <label htmlFor="wd-student-annotation">Student Annotation</label><br />
+            {/* Assignment Group Dropdown */}
+            <Row className="mb-3">
+                <Col xs={3} className="text-end">
+                    <label htmlFor="wd-group">Assignment Group</label>
+                </Col>
+                <Col xs={9}>
+                    <select id="wd-group" className="form-select">
+                        <option value="ASSIGNMENTS">ASSIGNMENTS</option>
+                    </select>
+                </Col>
+            </Row>
 
-                        <input type="checkbox" name="online-entry-options" id="wd-file-upload" />
-                        <label htmlFor="wd-file-upload">File Uploads</label>
-                    </td>
-                </tr>
-                <br />
-                <tr>
-                    <td align="right">
-                        <label>Assign </label>
-                    </td>
-                    <td>
-                        Assign to <br />
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input id="wd-assign-to" value="Everyone" />
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <label htmlFor="wd-text-fields-dob"> Due </label><br />
-                        <input type="date"
-                            value="2024-05-13"
-                            id="wd-due-date" /><br />
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <table>
-                        <tr>
-                            <td>Available from</td>
-                            <td>Until</td>
-                        </tr>
-                        <tr>
-                            <td><input type="date"
-                                value="2024-05-06"
-                                id="wd-available-from" />
-                            </td>
-                            <td>
-                                <input type="date"
-                                    value="2024-05-20"
-                                    id="wd-available-until" />
-                            </td>
-                        </tr>
-                    </table>
-                </tr>
-                <tr>
-                    <td colSpan={2}>
-                        <hr />
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" colSpan={2}>
-                        <button>Cancel</button>
-                        <button>Save</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
+            {/* Display Grade As Dropdown */}
+            <Row className="mb-3">
+                <Col xs={3} className="text-end">
+                    <label htmlFor="wd-display-grade-as">Display Grade as</label>
+                </Col>
+                <Col xs={9}>
+                    <select id="wd-display-grade-as" className="form-select">
+                        <option value="Percentage">Percentage</option>
+                    </select>
+                </Col>
+            </Row>
+
+            {/* Submission Type Dropdown */}
+            <div className="m-3">
+                <Row className="mb-3">
+                    <Col xs={3} className="text-end">
+                        <label htmlFor="wd-submission-type">Submission type</label>
+                    </Col>
+                    <Col xs={9} className="border mb-3">
+                        <br />
+                        <select id="wd-submission-type" className="form-select">
+                            <option value="Online">Online</option>
+                        </select><br />
+                        <label className="fw-bolder">Online Entry Options</label><br /><br />
+                        {["Text Entry", "Website URL", "Media Recordings", "Student Annotation", "File Uploads"].map((option, index) => (
+                            <div key={index} className="form-check">
+                                <input type="checkbox" className="form-check-input" id={`wd-option-${index}`} />
+                                <label className="form-check-label" htmlFor={`wd-option-${index}`}>{option}</label>
+                            </div>
+                        ))}
+                    </Col>
+                </Row>
+
+                {/* Online Entry Options */}
+                {/* <Row>
+
+                </Row> */}
+            </div>
+            {/* Assign To Section */}
+            <Row className="mb-3">
+                <Col xs={3} className="text-end">
+                    <label>Assign</label>
+                </Col>
+                <Col xs={9} className="border mb-3">
+                    <br />
+                    <Col>
+                        <label>Assign to</label>
+                        <input id="wd-assign-to" value="Everyone" className="form-control" />
+                    </Col>
+                    <br />
+                    <Col>
+                        <label htmlFor="wd-due-date">Due</label>
+                        <input type="date" value="2024-05-13" id="wd-due-date" className="form-control" />
+                    </Col>
+                    <br />
+                    <Col>
+                        <Row>
+                            <Col xs={12} sm={6} md={4} lg={3}><label>Available from</label></Col>
+                            <Col xs={12} sm={6} md={4} lg={3}><label>Until</label></Col>
+                        </Row>
+                        <Row>
+                            <Col xs={12} sm={6} md={4} lg={3}>
+                                <input type="date" value="2024-05-06" className="form-control" />
+                            </Col>
+                            <Col xs={12} sm={6} md={4} lg={3}>
+                                <input type="date" value="2024-05-20" className="form-control" />
+                            </Col>
+                        </Row>
+                    </Col>
+                    <br />
+                </Col>
+            </Row>
+            <hr />
+            {/* Buttons */}
+            <Row className="mt-4">
+                <Col className="text-end">
+                    <button className="btn btn-secondary me-2">Cancel</button>
+                    <button className="btn btn-danger">Save</button>
+                </Col>
+            </Row>
+        </Container>
     );
 }
