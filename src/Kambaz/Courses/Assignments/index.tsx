@@ -6,8 +6,15 @@ import { GoTriangleDown } from "react-icons/go";
 import { IoEllipsisVertical } from "react-icons/io5";
 import LessonControlButtons from "../Modules/LessonControlButtons";
 import { MdOutlineAssignment } from "react-icons/md";
+import { Link, useParams } from "react-router";
+import * as db from "../../Database";
 
 export default function Assignments() {
+    const { cid } = useParams();
+    const assignments = db.assignments;
+    const courseAssignments = assignments.filter(
+        assignment => assignment.course === cid
+    );
     return (
         <div id="wd-assignments">
             <div className="d-flex align-items-center justify-content-between">
@@ -41,67 +48,29 @@ export default function Assignments() {
                         </div>
                     </div>
                 </li>
-                <li className="wd-lesson list-group-item p-3 ps-1 bg-transparent">
-                    <div className="d-flex align-items-center">
-                        <BsGripVertical className="me fs-3 bg-transparent" />
-                        <MdOutlineAssignment className="me-2" color="green" />
-                        <div className="card-body">
-                            <a className="card-title text-dark stretched-link no-underline" href="#/Kambaz/Courses/1234/Assignments/123">
-                                <strong>A1</strong>
-                            </a>
-                            <div className="d-flex align-items-center">
-                                <h6 className="card-subtitle mb-0 text-danger me-1">Multiple Modules </h6>
-                                <p className="card-text text-muted mb-0"> | Not available until May 6 at 12:00am |</p>
+                {courseAssignments.map(assignment => (
+                    <li key={assignment._id} className="wd-lesson list-group-item p-3 ps-1 bg-transparent">
+                        <div className="d-flex align-items-center">
+                            <BsGripVertical className="me fs-3 bg-transparent" />
+                            <MdOutlineAssignment className="me-2" color="green" />
+                            <div className="card-body">
+                                <Link className="card-title text-dark stretched-link no-underline" to={`/Kambaz/Courses/${assignment.course}/Assignments/${assignment._id}`}>
+                                    <strong>{assignment.title}</strong>
+                                </Link>
+                                <div className="d-flex align-items-center">
+                                    <h6 className="card-subtitle mb-0 text-danger me-1">Multiple Modules </h6>
+                                    <p className="card-text text-muted mb-0"> | Not available until May 6 at 12:00am |</p>
+                                </div>
+                                <div className="d-flex align-items-center">
+                                    <p className="card-text text-muted mb-0 me-1">Due May 13 at 11:59pm </p>
+                                    <p className="text-muted mb-0"> | 100 pts</p>
+                                </div>
                             </div>
-                            <div className="d-flex align-items-center">
-                                <p className="card-text text-muted mb-0 me-1">Due May 13 at 11:59pm </p>
-                                <p className="text-muted mb-0"> | 100 pts</p>
-                            </div>
+                            <LessonControlButtons />
                         </div>
-                        <LessonControlButtons />
-                    </div>
-                </li>
-                <li className="wd-lesson list-group-item p-3 ps-1 bg-transparent">
-                    <div className="d-flex align-items-center">
-                        <BsGripVertical className="me fs-3 bg-transparent" />
-                        <MdOutlineAssignment className="me-2" color="green" />
-                        <div className="card-body">
-                            <a className="card-title text-dark stretched-link no-underline" href="#/Kambaz/Courses/1234/Assignments/124">
-                                <strong>A2</strong>
-                            </a>
-                            <div className="d-flex align-items-center">
-                                <h6 className="card-subtitle mb-0 text-danger me-1">Multiple Modules </h6>
-                                <p className="card-text text-muted mb-0"> | Not available until May 13 at 12:00am |</p>
-                            </div>
-                            <div className="d-flex align-items-center">
-                                <p className="card-text text-muted mb-0 me-1">Due May 20 at 11:59pm </p>
-                                <p className="text-muted mb-0"> | 100 pts</p>
-                            </div>
-                        </div>
-                        <LessonControlButtons />
-                    </div>
-                </li>
-                <li className="wd-lesson list-group-item p-3 ps-1 bg-transparent">
-                    <div className="d-flex align-items-center">
-                        <BsGripVertical className="me fs-3 bg-transparent" />
-                        <MdOutlineAssignment className="me-2" color="green" />
-                        <div className="card-body">
-                            <a className="card-title text-dark stretched-link no-underline" href="#/Kambaz/Courses/1234/Assignments/125">
-                                <strong>A3</strong>
-                            </a>
-                            <div className="d-flex align-items-center">
-                                <h6 className="card-subtitle mb-0 text-danger me-1">Multiple Modules </h6>
-                                <p className="card-text text-muted mb-0"> | Not available until May 20 at 12:00am |</p>
-                            </div>
-                            <div className="d-flex align-items-center">
-                                <p className="card-text text-muted mb-0 me-1">Due May 27 at 11:59pm </p>
-                                <p className="text-muted mb-0"> | 100 pts</p>
-                            </div>
-                        </div>
-                        <LessonControlButtons />
-                    </div>
-                </li>
+                    </li>
+                ))}
             </ul>
-        </div>
+        </div >
     );
 }

@@ -1,20 +1,31 @@
 import { Row, Col, Container } from "react-bootstrap";
+import { useParams } from "react-router";
+import * as db from "../../Database";
+import { Link } from "react-router";
 
 export default function AssignmentEditor() {
+    const { cid, aid } = useParams();
+    console.log(cid, aid);
+    const assignments = db.assignments;
+    const courseAssignments = assignments.filter(
+        assignment => assignment.course === cid &&
+            assignment._id === aid
+    );
     return (
         <Container id="wd-assignments-editor">
             {/* Assignment Name */}
-            <Row className="mb-3">
-                <Col xs={3} className="text-end">
-                    <label htmlFor="wd-name">Assignment Name</label>
-                </Col>
-                <Col xs={9}>
-                    <input id="wd-name" value="A1 - ENV + HTML" className="form-control" />
-                </Col>
-            </Row>
-
+            {courseAssignments.map(assignment => (
+                <Row className="mb-3">
+                    <Col xs={3} className="text-end">
+                        <label htmlFor="wd-name">Assignment Name</label>
+                    </Col>
+                    <Col xs={9}>
+                        <input id="wd-name" value={`${assignment._id} - ${assignment.title}`} className="form-control" />
+                    </Col>
+                </Row>
+            ))}
             {/* Description Textarea */}
-            <Row className="mb-3">
+            < Row className="mb-3" >
                 <Col xs={3}></Col>
                 <Col xs={9} >
                     <textarea id="wd-description" className="form-control" rows={10}>
@@ -132,10 +143,14 @@ export default function AssignmentEditor() {
             {/* Buttons */}
             <Row className="mt-4">
                 <Col className="text-end">
-                    <button className="btn btn-secondary me-2">Cancel</button>
-                    <button className="btn btn-danger">Save</button>
+                    {courseAssignments.map(assignment => (
+                        <div key={assignment._id}>
+                            <Link to={`/Kambaz/Courses/${assignment.course}/Assignments/`} className="btn btn-secondary me-2">Cancel</Link>
+                            <Link to={`/Kambaz/Courses/${assignment.course}/Assignments/`} className="btn btn-danger">Save</Link>
+                        </div>
+                    ))}
                 </Col>
             </Row>
-        </Container>
+        </Container >
     );
 }
