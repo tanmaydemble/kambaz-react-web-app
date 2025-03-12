@@ -4,17 +4,31 @@ import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import { GoTriangleDown } from "react-icons/go";
 import { IoEllipsisVertical } from "react-icons/io5";
-import LessonControlButtons from "../Modules/LessonControlButtons";
+// import LessonControlButtons from "../Modules/LessonControlButtons";
 import { MdOutlineAssignment } from "react-icons/md";
-import { Link, useParams } from "react-router";
-import * as db from "../../Database";
+import { Link, useNavigate, useParams } from "react-router";
+// import * as db from "../../Database";
+import { v4 as uuidv4 } from "uuid";
+// import { addAssignment } from './reducer';
+import { useSelector, useDispatch } from "react-redux";
+import AssignmentControlButtons from "./AssignmentControlButtons";
+import { deleteAssignment } from "./reducer";
 
 export default function Assignments() {
     const { cid } = useParams();
-    const assignments = db.assignments;
+    const { assignments } = useSelector((state: any) => state.assignmentsReducer);
     const courseAssignments = assignments.filter(
-        assignment => assignment.course === cid
+        (assignment: { course: string | undefined; }) => assignment.course === cid
     );
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const handleNewAssignment = () => {
+        const newId = uuidv4();
+        navigate(`/Kambaz/Courses/${cid}/Assignments/${newId}`);
+    };
+    const handleDeleteAssignment = (assignmentId: string) => {
+        dispatch(deleteAssignment(assignmentId));
+    };
     return (
         <div id="wd-assignments">
             <div className="d-flex align-items-center justify-content-between">
@@ -27,7 +41,7 @@ export default function Assignments() {
                         <FaPlus className="position-relative me-2 " style={{ bottom: "1px" }} />
                         Group
                     </button>
-                    <button className="btn btn-danger rounded-1" type="button">
+                    <button className="btn btn-danger rounded-1" type="button" onClick={handleNewAssignment}>
                         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
                         Assignment
                     </button>
@@ -48,25 +62,40 @@ export default function Assignments() {
                         </div>
                     </div>
                 </li>
-                {courseAssignments.map(assignment => (
+                {courseAssignments.map((assignment: any) => (
                     <li key={assignment._id} className="wd-lesson list-group-item p-3 ps-1 bg-transparent">
                         <div className="d-flex align-items-center">
                             <BsGripVertical className="me fs-3 bg-transparent" />
                             <MdOutlineAssignment className="me-2" color="green" />
                             <div className="card-body">
-                                <Link className="card-title text-dark stretched-link no-underline" to={`/Kambaz/Courses/${assignment.course}/Assignments/${assignment._id}`}>
+                                {/* removed stretched-link class from link below */}
+                                <Link className="card-title text-dark no-underline"
+                                    to={`/Kambaz/Courses/${assignment.course}/Assignments/${assignment._id}`}>
                                     <strong>{assignment.title}</strong>
                                 </Link>
                                 <div className="d-flex align-items-center">
-                                    <h6 className="card-subtitle mb-0 text-danger me-1">Multiple Modules </h6>
-                                    <p className="card-text text-muted mb-0"> | Not available until May 6 at 12:00am |</p>
+                                    <h6 className="card-subtitle mb-0 text-danger me-1">Multiple Modules</h6>
+                                    <p className="card-text text-muted mb-0">
+                                        {assignment.availableFrom
+                                            ? ` | Available from ${new Date(assignment.availableFrom).toLocaleDateString()} |`
+                                            : " | Not available yet |"}
+                                    </p>
                                 </div>
                                 <div className="d-flex align-items-center">
-                                    <p className="card-text text-muted mb-0 me-1">Due May 13 at 11:59pm </p>
-                                    <p className="text-muted mb-0"> | 100 pts</p>
+                                    <p className="card-text text-muted mb-0 me-1">
+                                        {assignment.dueDate
+                                            ? `Due ${new Date(assignment.dueDate).toLocaleString()}`
+                                            : "No due date"}
+                                    </p>
+                                    <p className="text-muted mb-0">
+                                        {assignment.points ? ` | ${assignment.points} pts` : ""}
+                                    </p>
                                 </div>
                             </div>
-                            <LessonControlButtons />
+                            <div onClick={(e) => e.stopPropagation()}>
+                                <AssignmentControlButtons assignmentId={assignment._id}
+                                    onDelete={handleDeleteAssignment} />
+                            </div>
                         </div>
                     </li>
                 ))}
@@ -74,3 +103,4 @@ export default function Assignments() {
         </div >
     );
 }
+
