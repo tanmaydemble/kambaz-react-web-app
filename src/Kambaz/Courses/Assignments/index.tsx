@@ -4,31 +4,37 @@ import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import { GoTriangleDown } from "react-icons/go";
 import { IoEllipsisVertical } from "react-icons/io5";
-// import LessonControlButtons from "../Modules/LessonControlButtons";
 import { MdOutlineAssignment } from "react-icons/md";
 import { Link, useNavigate, useParams } from "react-router";
-// import * as db from "../../Database";
 import { v4 as uuidv4 } from "uuid";
-// import { addAssignment } from './reducer';
 import { useSelector, useDispatch } from "react-redux";
 import AssignmentControlButtons from "./AssignmentControlButtons";
-import { deleteAssignment } from "./reducer";
+import { setAssignments, deleteAssignment } from "./reducer";
+import { useEffect } from "react";
+import * as coursesClient from "../client";
+import * as assignmentsClient from "./client";
 
 export default function Assignments() {
     const { cid } = useParams();
     const { assignments } = useSelector((state: any) => state.assignmentsReducer);
-    const courseAssignments = assignments.filter(
-        (assignment: { course: string | undefined; }) => assignment.course === cid
-    );
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleNewAssignment = () => {
         const newId = uuidv4();
         navigate(`/Kambaz/Courses/${cid}/Assignments/${newId}`);
     };
-    const handleDeleteAssignment = (assignmentId: string) => {
+    const handleDeleteAssignment = async (assignmentId: string) => {
+        await assignmentsClient.deleteAssignment(assignmentId);
         dispatch(deleteAssignment(assignmentId));
     };
+    const fetchAssignments = async () => {
+        const assignments = await coursesClient.findAssignmentsForCourse(cid as string);
+        dispatch(setAssignments(assignments));
+    };
+    useEffect(() => {
+        fetchAssignments();
+    }, []);
+
     return (
         <div id="wd-assignments">
             <div className="d-flex align-items-center justify-content-between">
@@ -62,13 +68,12 @@ export default function Assignments() {
                         </div>
                     </div>
                 </li>
-                {courseAssignments.map((assignment: any) => (
+                {assignments.map((assignment: any) => (
                     <li key={assignment._id} className="wd-lesson list-group-item p-3 ps-1 bg-transparent">
                         <div className="d-flex align-items-center">
                             <BsGripVertical className="me fs-3 bg-transparent" />
                             <MdOutlineAssignment className="me-2" color="green" />
                             <div className="card-body">
-                                {/* removed stretched-link class from link below */}
                                 <Link className="card-title text-dark no-underline"
                                     to={`/Kambaz/Courses/${assignment.course}/Assignments/${assignment._id}`}>
                                     <strong>{assignment.title}</strong>

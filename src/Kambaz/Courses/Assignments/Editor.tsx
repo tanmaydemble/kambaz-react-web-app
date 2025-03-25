@@ -1,22 +1,16 @@
 import { Row, Col, Container } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router";
-// import * as db from "../../Database";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { addAssignment, updateAssignment } from "./reducer";
-
+import * as coursesClient from "../client";
+import * as assignmentsClient from "./client"
 
 export default function AssignmentEditor() {
     const { cid, aid } = useParams();
-    // console.log(cid, aid);
-    // const assignments = db.assignments;
     const { assignments } = useSelector((state: any) => state.assignmentsReducer);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // const courseAssignments = assignments.filter(
-    //     (assignment: { course: string | undefined; _id: string | undefined; }) => assignment.course === cid &&
-    //         assignment._id === aid
-    // );
     const existingAssignment = assignments.find(
         (a: { _id: string }) => a._id === aid
     );
@@ -31,32 +25,23 @@ export default function AssignmentEditor() {
         availableFrom: existingAssignment?.availableFrom || '',
         availableUntil: existingAssignment?.availableUntil || ''
     });
-    const handleSave = (e: React.FormEvent) => {
+    const handleSave = async (e: React.FormEvent) => {
         e.preventDefault();
         if (existingAssignment) {
             console.log("update case")
+            await assignmentsClient.updateAssignment(form);
             dispatch(updateAssignment(form));
         } else {
             console.log("add case")
             console.log({ ...form })
-            dispatch(addAssignment(form));
+            const assignment = await coursesClient.createAssignmentForCourse(cid as string, { ...form, course: cid });
+            dispatch(addAssignment(assignment));
         }
         navigate(`/Kambaz/Courses/${cid}/Assignments`);
     };
 
     return (
         <Container id="wd-assignments-editor">
-            {/* Assignment Name */}
-            {/* {courseAssignments.map((assignment: { _id: any; title: any; }) => (
-                <Row className="mb-3">
-                    <Col xs={3} className="text-end">
-                        <label htmlFor="wd-name">Assignment Name</label>
-                    </Col>
-                    <Col xs={9}>
-                        <input id="wd-name" value={`${assignment._id} - ${assignment.title}`} className="form-control" />
-                    </Col>
-                </Row>
-            ))} */}
             <Row className="mb-3">
                 <Col xs={3} className="text-end">
                     <label htmlFor="wd-name">Assignment Name</label>
@@ -64,10 +49,10 @@ export default function AssignmentEditor() {
                 <Col xs={9}>
                     <input
                         id="wd-name"
-                        value={form.title} // Show only the title
+                        value={form.title}
                         onChange={(e) => setForm({
                             ...form,
-                            title: e.target.value // Directly update title
+                            title: e.target.value
                         })}
                         className="form-control"
                         placeholder="Enter assignment title"
@@ -78,20 +63,6 @@ export default function AssignmentEditor() {
             < Row className="mb-3" >
                 <Col xs={3}></Col>
                 <Col xs={9} >
-                    {/* <textarea id="wd-description" className="form-control" rows={10}>
-                        The assignment is available online.
-                        Submit a link to the landing page of your Web application running on Netlify.
-
-                        The landing page should be the Kambaz application with a link to the Lab exercises.
-
-                        Lab 1 should be the landing page of the Lab exercises and should include the following:
-
-                        Your full name and section
-                        Links to each of the lab assignments
-                        Link to the Kambaz application
-                        Links to all relevant source code repositories
-                        The Kambaz application should include a link to navigate back to the landing page.
-                    </textarea> */}
                     <textarea
                         id="wd-description"
                         className="form-control"
@@ -108,7 +79,6 @@ export default function AssignmentEditor() {
                     <label htmlFor="wd-points">Points</label>
                 </Col>
                 <Col xs={9}>
-                    {/* <input id="wd-points" value={100} className="form-control" /> */}
                     <input
                         id="wd-points"
                         type="number"
@@ -183,7 +153,6 @@ export default function AssignmentEditor() {
                     <br />
                     <Col>
                         <label htmlFor="wd-due-date">Due</label>
-                        {/* <input type="date" value="2024-05-13" id="wd-due-date" className="form-control" /> */}
                         <input
                             type="date"
                             id="wd-due-date"
@@ -199,12 +168,6 @@ export default function AssignmentEditor() {
                             <Col xs={12} sm={6} md={4} lg={3}><label>Until</label></Col>
                         </Row>
                         <Row>
-                            {/* <Col xs={12} sm={6} md={4} lg={3}>
-                                <input type="date" value="2024-05-06" className="form-control" />
-                            </Col>
-                            <Col xs={12} sm={6} md={4} lg={3}>
-                                <input type="date" value="2024-05-20" className="form-control" />
-                            </Col> */}
                             <Col xs={12} sm={6} md={4} lg={3}>
                                 <input
                                     type="date"
@@ -228,16 +191,6 @@ export default function AssignmentEditor() {
             </Row>
             <hr />
             {/* Buttons */}
-            {/* <Row className="mt-4">
-                <Col className="text-end">
-                    {courseAssignments.map((assignment: { _id: Key | null | undefined; course: any; }) => (
-                        <div key={assignment._id}>
-                            <Link to={`/Kambaz/Courses/${assignment.course}/Assignments/`} className="btn btn-secondary me-2">Cancel</Link>
-                            <Link to={`/Kambaz/Courses/${assignment.course}/Assignments/`} className="btn btn-danger">Save</Link>
-                        </div>
-                    ))}
-                </Col>
-            </Row> */}
 
             <Row className="mt-4">
                 <Col className="text-end">

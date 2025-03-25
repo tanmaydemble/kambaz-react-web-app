@@ -13,7 +13,7 @@ export default function AssignmentControlButtons({
 }) {
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const handleDeleteClick = (e: React.MouseEvent) => {
-        e.stopPropagation(); // Prevent parent click handler
+        e.stopPropagation();
         setShowDeleteDialog(true);
     };
     return (

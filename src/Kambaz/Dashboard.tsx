@@ -2,30 +2,18 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { enrollInCourse, unenrollFromCourse } from "./Courses/Enrollments/reducer";
+import { enroll, unenroll } from "./Courses/Enrollments/client";
 
-
-export default function Dashboard({ courses, course, setCourse, addNewCourse,
+export default function Dashboard({ courses, course, allCourses, setCourse, addNewCourse,
     deleteCourse, updateCourse }: {
-        courses: any[]; course: any; setCourse: (course: any) => void;
+        courses: any[]; course: any; setCourse: (course: any) => void; allCourses: any[];
         addNewCourse: () => void; deleteCourse: (course: any) => void;
         updateCourse: () => void;
     }) {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const enrollments = useSelector((state: any) => state.enrollments.enrollments);
     const [showAllCourses, setShowAllCourses] = useState(false);
-    const filteredCourses = courses.filter(course => {
-        const isEnrolled = enrollments.some(
-            (enrollment: { user: string; course: string }) =>
-                enrollment.user === currentUser._id &&
-                enrollment.course === course._id
-        );
 
-        if (currentUser.role === 'STUDENT') {
-            return showAllCourses ? true : isEnrolled; // Toggle for students
-        }
-        return isEnrolled; // Faculty always see only their enrolled courses
-    });
-    const dispatch = useDispatch();
     const isEnrolled = (courseId: string) => {
         return enrollments.some(
             (enrollment: { user: string; course: string }) =>
@@ -33,13 +21,24 @@ export default function Dashboard({ courses, course, setCourse, addNewCourse,
                 enrollment.course === courseId
         );
     };
-    const handleEnrollmentToggle = (courseId: string) => {
+
+    const filteredCourses = currentUser.role === 'STUDENT'
+        ? (showAllCourses
+            ? allCourses.map(c => ({ ...c, isEnrolled: isEnrolled(c._id) }))
+            : courses)
+        : courses;
+
+    const dispatch = useDispatch();
+
+    const handleEnrollmentToggle = async (courseId: string) => {
         if (isEnrolled(courseId)) {
+            await unenroll(currentUser._id, courseId);
             dispatch(unenrollFromCourse({
                 user: currentUser._id,
                 course: courseId
             }));
         } else {
+            await enroll(currentUser._id, courseId);
             dispatch(enrollInCourse({
                 user: currentUser._id,
                 course: courseId
@@ -74,17 +73,10 @@ export default function Dashboard({ courses, course, setCourse, addNewCourse,
                     <hr />
                 </>
             )}
-            {/* <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2> */}
             <h2 id="wd-dashboard-published">Published Courses ({filteredCourses.length})</h2>
             <hr />
             <div id="wd-dashboard-courses" className="row">
                 <div className="row row-cols-1 row-cols-md-5 g-4">
-                    {/* courses.filter((course) =>
-                    enrollments.some(
-                    (enrollment: {user: any; course: any; }) =>
-                    enrollment.user === currentUser._id &&
-                    enrollment.course === course._id
-                    )) use this instead of filtered courses*/ }
                     {filteredCourses.map((course) => (
                         <div key={course._id} className="wd-dashboard-course col" style={{ width: "300px" }}>
                             <div className="card rounded-3 overflow-hidden">

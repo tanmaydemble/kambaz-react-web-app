@@ -1,15 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import enrollments from '../../Database/enrollments.json';
+// import enrollments from '../../Database/enrollments.json';
 import { v4 as uuidv4 } from "uuid";
 
-const initialState = {
-    enrollments: enrollments
+interface Enrollment {
+    _id: string;
+    user: string;
+    course: string;
+}
+interface EnrollmentsState {
+    enrollments: Enrollment[];
+}
+
+const initialState: EnrollmentsState = {
+    enrollments: []
 };
 
 const enrollmentsSlice = createSlice({
     name: 'enrollments',
     initialState,
     reducers: {
+        setEnrollments: (state, action) => {
+            state.enrollments = action.payload;
+        },
         addEnrollment: (state, action) => {
             const newEnrollment = {
                 _id: String(state.enrollments.length + 1),
@@ -17,7 +29,6 @@ const enrollmentsSlice = createSlice({
                 course: action.payload.courseId
             };
             state.enrollments.push(newEnrollment);
-            console.log([...state.enrollments]);
         },
         enrollInCourse: (state, action: PayloadAction<{ user: string; course: string }>) => {
             state.enrollments.push({
@@ -36,5 +47,5 @@ const enrollmentsSlice = createSlice({
     }
 });
 
-export const { addEnrollment, enrollInCourse, unenrollFromCourse } = enrollmentsSlice.actions;
+export const { setEnrollments, addEnrollment, enrollInCourse, unenrollFromCourse } = enrollmentsSlice.actions;
 export default enrollmentsSlice.reducer;
