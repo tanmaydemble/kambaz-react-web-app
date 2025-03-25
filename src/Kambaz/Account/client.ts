@@ -8,6 +8,7 @@ export const signin = async (credentials: any) => {
     return response.data;
 };
 export const signup = async (user: any) => {
+    console.log("Backend URL:", import.meta.env.VITE_REMOTE_SERVER);
     const response = await axiosWithCredentials.post(`${USERS_API}/signup`, user);
     return response.data;
 };
