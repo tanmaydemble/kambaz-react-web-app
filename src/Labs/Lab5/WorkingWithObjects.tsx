@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
+// export const REMOTE_SERVER = "http://localhost:4000";
 export default function WorkingWithObjects() {
     const [assignment, setAssignment] = useState({
         id: 1, title: "NodeJS Assignment",

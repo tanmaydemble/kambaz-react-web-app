@@ -12,6 +12,8 @@ export default function Profile() {
     const fetchProfile = () => {
         if (!currentUser) return navigate("/Kambaz/Account/Signin");
         setProfile(currentUser);
+        console.log("in fetch profile");
+        console.log(currentUser);
     };
     const signout = async () => {
         await client.signout();
@@ -20,6 +22,8 @@ export default function Profile() {
     };
     const updateProfile = async () => {
         const updatedProfile = await client.updateUser(profile);
+        console.log("updatedProfile");
+        console.log(updatedProfile);
         dispatch(setCurrentUser(updatedProfile));
     };
 
@@ -41,9 +45,9 @@ export default function Profile() {
                         onChange={(e) => setProfile({ ...profile, dob: e.target.value })} type="date" />
                     <input defaultValue={profile.email} id="wd-email" className="form-control mb-2"
                         onChange={(e) => setProfile({ ...profile, email: e.target.value })} />
-                    <select onChange={(e) => setProfile({ ...profile, role: e.target.value })}
+                    <select value={profile.role} onChange={(e) => setProfile({ ...profile, role: e.target.value })}
                         className="form-control mb-2" id="wd-role">
-                        <option value="USER">User</option>       <option value="ADMIN">Admin</option>
+                        <option value="ADMIN">Admin</option> <option value="USER">User</option>
                         <option value="FACULTY">Faculty</option> <option value="STUDENT">Student</option>
                     </select>
                     <button onClick={updateProfile} className="btn btn-primary w-100 mb-2"> Update </button>

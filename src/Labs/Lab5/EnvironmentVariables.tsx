@@ -1,4 +1,5 @@
 const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
+// export const REMOTE_SERVER = "http://localhost:4000";
 
 export default function EnvironmentVariables() {
     console.log('Remote Server:', process.env.VITE_REMOTE_SERVER);

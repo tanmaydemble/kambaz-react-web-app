@@ -7,66 +7,122 @@ import './styles.css'
 import { useEffect, useState } from "react";
 import ProtectedRoute from "./Account/ProtectedRoute";
 import { useSelector, useDispatch } from "react-redux";
-import { setEnrollments, addEnrollment } from "./Courses/Enrollments/reducer";
+import { addEnrollment } from "./Courses/Enrollments/reducer";
 import Session from "./Account/Session";
 import * as userClient from "./Account/client";
 import * as courseClient from "./Courses/client";
-import * as enrollmentClient from "./Courses/Enrollments/client";
+// import * as enrollmentClient from "./Courses/Enrollments/client";
+
+// const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
 
 export default function Kambaz() {
+    // console.log(REMOTE_SERVER);
     const [allCourses, setAllCourses] = useState<any[]>([]);
     const [courses, setCourses] = useState<any[]>([]);
     const [course, setCourse] = useState<any>({
-        _id: "1234", name: "New Course", number: "New Number",
+        name: "New Course", number: "New Number",
         startDate: "2023-09-10", endDate: "2023-12-15", description: "New Description",
     });
     const { currentUser } = useSelector((state: any) => state.accountReducer);
-    const enrollments = useSelector((state: any) => state.enrollments.enrollments);
-
-    const fetchCourses = async () => {
+    // const enrollments = useSelector((state: any) => state.enrollments.enrollments);
+    const [enrolling, setEnrolling] = useState<boolean>(false);
+    const findCoursesForUser = async () => {
         try {
-            if (currentUser.role === 'FACULTY') {
-                const facultyCourses = await userClient.findMyCourses();
-                setCourses(facultyCourses);
-            } else {
-                const allCourses = await courseClient.fetchAllCourses();
-                setAllCourses(allCourses);
-                const enrolledCourses = allCourses.filter((c: { _id: any; }) =>
-                    enrollments.some((e: { user: any; course: any; }) => e.user === currentUser._id && e.course === c._id)
-                );
-                setCourses(enrolledCourses);
-            }
+            const courses = await userClient.findCoursesForUser(currentUser._id);
+            setCourses(courses);
         } catch (error) {
             console.error(error);
         }
     };
+    const updateEnrollment = async (courseId: string, enrolled: boolean) => {
+        if (enrolled) {
+            await userClient.enrollIntoCourse(currentUser._id, courseId);
+        } else {
+            await userClient.unenrollFromCourse(currentUser._id, courseId);
+        }
+        setCourses(
+            courses.map((course) => {
+                if (course._id === courseId) {
+                    return { ...course, enrolled: enrolled };
+                } else {
+                    return course;
+                }
+            })
+        );
+    };
+    const fetchCourses = async () => {
+        try {
+            const allCourses = await courseClient.fetchAllCourses();
+            const enrolledCourses = await userClient.findCoursesForUser(
+                currentUser._id
+            );
+            const courses = allCourses.map((course: any) => {
+                if (enrolledCourses.find((c: any) => c._id === course._id)) {
+                    return { ...course, enrolled: true };
+                } else {
+                    return course;
+                }
+            });
+            setCourses(courses);
+            setAllCourses(allCourses); // i added this to prof code
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    useEffect(() => {
+        if (enrolling) {
+            fetchCourses();
+        } else {
+            findCoursesForUser();
+        }
+    }, [currentUser, enrolling]);
+    // const fetchCourses = async () => {
+    //     try {
+    //         if (currentUser.role === 'FACULTY') {
+    //             const facultyCourses = await userClient.findMyCourses();
+    //             setCourses(facultyCourses);
+    //         } else {
+    //             const allCourses = await courseClient.fetchAllCourses();
+    //             setAllCourses(allCourses);
+    //             const enrolledCourses = allCourses.filter((c: { _id: any; }) =>
+    //                 enrollments.some((e: { user: any; course: any; }) => e.user === currentUser._id && e.course === c._id)
+    //             );
+    //             setCourses(enrolledCourses);
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        const initializeEnrollments = async () => {
-            if (currentUser) {
-                try {
-                    const userEnrollments = await enrollmentClient.fetchUserEnrollments(currentUser._id);
-                    dispatch(setEnrollments(userEnrollments));
-                } catch (error) {
-                    console.error("Failed to load enrollments:", error);
-                }
-            }
-        };
-        initializeEnrollments();
-    }, [currentUser, dispatch]);
+    // i am not sure if the below useEffects are required
+    // useEffect(() => {
+    //     const initializeEnrollments = async () => {
+    //         if (currentUser) {
+    //             try {
+    //                 const userEnrollments = await enrollmentClient.fetchUserEnrollments(currentUser._id);
+    //                 dispatch(setEnrollments(userEnrollments));
+    //             } catch (error) {
+    //                 console.error("Failed to load enrollments:", error);
+    //             }
+    //         }
+    //     };
+    //     initializeEnrollments();
+    // }, [currentUser, dispatch]);
 
-    useEffect(() => {
-        fetchCourses();
-    }, [currentUser, enrollments]);
-
-
+    // useEffect(() => {
+    //     fetchCourses();
+    // }, [currentUser]);
 
     const addNewCourse = async () => {
-        const newCourse = await userClient.createCourse(course);
+        // const newCourse = await userClient.createCourse(course);
+        const newCourse = await courseClient.createCourse(course);
         setCourses([...courses, newCourse]);
+        setAllCourses([...allCourses, newCourse]);
         if (currentUser.role === 'FACULTY') {
             console.log("role is faculty")
+            console.log(currentUser._id)
+            console.log(newCourse._id)
             dispatch(addEnrollment({
                 userId: currentUser._id,
                 courseId: newCourse._id
@@ -101,11 +157,14 @@ export default function Kambaz() {
                         <Route path="/Dashboard" element={<ProtectedRoute><Dashboard
                             courses={courses}
                             course={course}
-                            allCourses={allCourses}
+                            allCourses={allCourses} // dont know if this is needed
                             setCourse={setCourse}
                             addNewCourse={addNewCourse}
                             deleteCourse={deleteCourse}
-                            updateCourse={updateCourse} /></ProtectedRoute>} />
+                            updateCourse={updateCourse}
+                            enrolling={enrolling}
+                            setEnrolling={setEnrolling}
+                            updateEnrollment={updateEnrollment} /></ProtectedRoute>} />
                         <Route path="/Courses/:cid/*" element={<ProtectedRoute><Courses courses={courses} /></ProtectedRoute>} />
                         <Route path="/Calendar" element={<h1>Calendar</h1>} />
                         <Route path="/Inbox" element={<h1>Inbox</h1>} />

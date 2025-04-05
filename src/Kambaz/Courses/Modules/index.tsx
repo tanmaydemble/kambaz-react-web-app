@@ -35,10 +35,13 @@ export default function Modules() {
         dispatch(addModule(module));
     };
     const removeModule = async (moduleId: string) => {
+        console.log("inside remove module")
+        console.log(moduleId)
         await modulesClient.deleteModule(moduleId);
         dispatch(deleteModule(moduleId));
     };
-
+    console.log("these are the modules")
+    console.log(modules)
     return (
         <div className="d-flex" id="wd-modules">
             <div className="flex-fill me-md-4">

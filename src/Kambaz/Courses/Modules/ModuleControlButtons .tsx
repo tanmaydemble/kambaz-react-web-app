@@ -9,6 +9,8 @@ export default function ModuleControlButtons({ moduleId, deleteModule, editModul
     editModule: (moduleId: string) => void
 }) {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
+    console.log("inside module control buttons")
+    console.log(moduleId);
     return (
         <div className="float-end">
             {currentUser.role === 'FACULTY' && (
