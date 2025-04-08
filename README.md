@@ -26,7 +26,6 @@ Visit our live demo: [https://a6--kanbaz-react-web-app.netlify.app/](https://a6-
 - **Frontend**: React.js with Redux
 - **Backend**: Node.js with Express
 - **Database**: MongoDB
-- **Authentication**: JWT
 
 ## Getting Started
 
