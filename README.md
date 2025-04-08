@@ -1,4 +1,5 @@
 # Canvas Clone
+![Canvas Clone LMS](./canvas.png)
 
 A simplified learning management system built with the MERN stack (MongoDB, Express, React, Node.js) and Redux.
 
