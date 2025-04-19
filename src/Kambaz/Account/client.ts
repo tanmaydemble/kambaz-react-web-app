@@ -1,6 +1,6 @@
 import axios from "axios";
-// export const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
-export const REMOTE_SERVER = "http://localhost:4000";
+export const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
+// export const REMOTE_SERVER = "http://localhost:4000";
 export const USERS_API = `${REMOTE_SERVER}/api/users`;
 const axiosWithCredentials = axios.create({ withCredentials: true });
 
