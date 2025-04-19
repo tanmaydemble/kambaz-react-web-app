@@ -9,7 +9,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 
 export default function Lab() {
-    console.log("Rendering Labs Component");
+    // console.log("Rendering Labs Component");
     return (
         <Provider store={store}>
             <div id="wd-labs">

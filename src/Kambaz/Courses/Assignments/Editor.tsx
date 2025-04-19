@@ -14,7 +14,7 @@ export default function AssignmentEditor() {
     const existingAssignment = assignments.find(
         (a: { _id: string }) => a._id === aid
     );
-    console.log({ ...existingAssignment });
+    // console.log({ ...existingAssignment });
     const [form, setForm] = useState({
         _id: aid,
         title: existingAssignment?.title || 'New Assignment',
@@ -28,12 +28,12 @@ export default function AssignmentEditor() {
     const handleSave = async (e: React.FormEvent) => {
         e.preventDefault();
         if (existingAssignment) {
-            console.log("update case")
+            // console.log("update case")
             await assignmentsClient.updateAssignment(form);
             dispatch(updateAssignment(form));
         } else {
-            console.log("add case")
-            console.log({ ...form })
+            // console.log("add case")
+            // console.log({ ...form })
             const assignment = await coursesClient.createAssignmentForCourse(cid as string, { ...form, course: cid });
             dispatch(addAssignment(assignment));
         }

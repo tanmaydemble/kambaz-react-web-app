@@ -34,7 +34,7 @@ import { useSelector } from "react-redux";
 
 export default function Lab3() {
     const { todos } = useSelector((state: any) => state.todosReducer);
-    console.log("Hello World!");
+    // console.log("Hello World!");
     return (<div id="wd-lab3">
         <h3>Lab 3</h3>
         <ul className="list-group">

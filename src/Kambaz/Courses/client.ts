@@ -1,6 +1,6 @@
 import axios from "axios";
-const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
-// export const REMOTE_SERVER = "http://localhost:4000";
+// const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
+export const REMOTE_SERVER = "http://localhost:4000";
 const COURSES_API = `${REMOTE_SERVER}/api/courses`;
 const axiosWithCredentials = axios.create({ withCredentials: true });
 export const fetchAllCourses = async () => {
@@ -40,13 +40,22 @@ export const createAssignmentForCourse = async (courseId: string, assignment: an
     return response.data;
 };
 export const createCourse = async (course: any) => {
-    // console.log(COURSES_API);
     const { data } = await axiosWithCredentials.post(COURSES_API, course);
     return data;
 };
 
 export const findUsersForCourse = async (courseId: string) => {
     const response = await axiosWithCredentials.get(`${COURSES_API}/${courseId}/users`);
+    return response.data;
+};
+
+export const findQuizzesForCourse = async (courseId: string) => {
+    const response = await axiosWithCredentials.get(`${COURSES_API}/${courseId}/quizzes`);
+    return response.data;
+};
+
+export const createQuizForCourse = async (courseId: string, quiz: any) => {
+    const response = await axiosWithCredentials.post(`${COURSES_API}/${courseId}/quizzes`, quiz);
     return response.data;
 };
 

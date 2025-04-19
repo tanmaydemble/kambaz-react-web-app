@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-// import { enrollInCourse, unenrollFromCourse } from "./Courses/Enrollments/reducer";
-// import { enroll, unenroll } from "./Courses/Enrollments/client";
 
 export default function Dashboard({ courses, course, allCourses, setCourse, addNewCourse,
     deleteCourse, updateCourse, enrolling, setEnrolling, updateEnrollment }: {
@@ -29,31 +27,10 @@ export default function Dashboard({ courses, course, allCourses, setCourse, addN
             : courses)
         : courses;
 
-    // const dispatch = useDispatch();
-
-    // const handleEnrollmentToggle = async (courseId: string) => {
-    //     if (isEnrolled(courseId)) {
-    //         await unenroll(currentUser._id, courseId);
-    //         dispatch(unenrollFromCourse({
-    //             user: currentUser._id,
-    //             course: courseId
-    //         }));
-    //     } else {
-    //         await enroll(currentUser._id, courseId);
-    //         dispatch(enrollInCourse({
-    //             user: currentUser._id,
-    //             course: courseId
-    //         }));
-    //     }
-    // };
     return (
         <div id="wd-dashboard">
             <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
             {currentUser.role === 'STUDENT' && (
-                // <button className="btn btn-primary float-end mb-3"
-                //     onClick={() => setShowAllCourses(!showAllCourses)}>
-                //     {showAllCourses ? "Show Enrolled" : "Show All Courses"}
-                // </button>
                 <button onClick={() => setEnrolling(!enrolling)} className="float-end btn btn-primary" >
                     {enrolling ? "My Courses" : "All Courses"}
                 </button>
@@ -99,20 +76,6 @@ export default function Dashboard({ courses, course, allCourses, setCourse, addN
                                         <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
                                             {course.description}  </p>
                                         <button className="btn btn-primary"> Go </button>
-                                        {/* {currentUser.role === 'STUDENT' && (
-                                            <button
-                                                className={`btn ${isEnrolled(course._id)
-                                                    ? 'btn-danger'
-                                                    : 'btn-success'
-                                                    } float-end`}
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    handleEnrollmentToggle(course._id);
-                                                }}
-                                            >
-                                                {isEnrolled(course._id) ? 'Unenroll' : 'Enroll'}
-                                            </button>
-                                        )} */}
                                         {currentUser.role === 'FACULTY' && (
                                             <>
                                                 <button onClick={(event) => {

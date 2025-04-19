@@ -1,6 +1,6 @@
 import axios from "axios";
-export const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
-// export const REMOTE_SERVER = "http://localhost:4000";
+// export const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
+export const REMOTE_SERVER = "http://localhost:4000";
 export const USERS_API = `${REMOTE_SERVER}/api/users`;
 const axiosWithCredentials = axios.create({ withCredentials: true });
 
@@ -9,7 +9,6 @@ export const signin = async (credentials: any) => {
     return response.data;
 };
 export const signup = async (user: any) => {
-    // console.log("Backend URL:", import.meta.env.VITE_REMOTE_SERVER);
     const response = await axiosWithCredentials.post(`${USERS_API}/signup`, user);
     return response.data;
 };

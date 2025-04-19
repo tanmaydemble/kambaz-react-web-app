@@ -6,7 +6,6 @@ import store from "./Kambaz/store";
 import { Provider } from "react-redux";
 
 function App() {
-  console.log("rendering app component");
   return (
     <HashRouter>
       <Provider store={store}>

@@ -76,53 +76,13 @@ export default function Kambaz() {
             findCoursesForUser();
         }
     }, [currentUser, enrolling]);
-    // const fetchCourses = async () => {
-    //     try {
-    //         if (currentUser.role === 'FACULTY') {
-    //             const facultyCourses = await userClient.findMyCourses();
-    //             setCourses(facultyCourses);
-    //         } else {
-    //             const allCourses = await courseClient.fetchAllCourses();
-    //             setAllCourses(allCourses);
-    //             const enrolledCourses = allCourses.filter((c: { _id: any; }) =>
-    //                 enrollments.some((e: { user: any; course: any; }) => e.user === currentUser._id && e.course === c._id)
-    //             );
-    //             setCourses(enrolledCourses);
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
     const dispatch = useDispatch();
 
-    // i am not sure if the below useEffects are required
-    // useEffect(() => {
-    //     const initializeEnrollments = async () => {
-    //         if (currentUser) {
-    //             try {
-    //                 const userEnrollments = await enrollmentClient.fetchUserEnrollments(currentUser._id);
-    //                 dispatch(setEnrollments(userEnrollments));
-    //             } catch (error) {
-    //                 console.error("Failed to load enrollments:", error);
-    //             }
-    //         }
-    //     };
-    //     initializeEnrollments();
-    // }, [currentUser, dispatch]);
-
-    // useEffect(() => {
-    //     fetchCourses();
-    // }, [currentUser]);
-
     const addNewCourse = async () => {
-        // const newCourse = await userClient.createCourse(course);
         const newCourse = await courseClient.createCourse(course);
         setCourses([...courses, newCourse]);
         setAllCourses([...allCourses, newCourse]);
         if (currentUser.role === 'FACULTY') {
-            console.log("role is faculty")
-            console.log(currentUser._id)
-            console.log(newCourse._id)
             dispatch(addEnrollment({
                 userId: currentUser._id,
                 courseId: newCourse._id
@@ -149,7 +109,6 @@ export default function Kambaz() {
         <Session>
             <div id="wd-kambaz">
                 <KambazNavigation />
-                {/* <h1>Kambaz</h1> */}
                 <div className="wd-main-content-offset p-3">
                     <Routes>
                         <Route path="/" element={<Navigate to="Account" />} />
@@ -157,7 +116,7 @@ export default function Kambaz() {
                         <Route path="/Dashboard" element={<ProtectedRoute><Dashboard
                             courses={courses}
                             course={course}
-                            allCourses={allCourses} // dont know if this is needed
+                            allCourses={allCourses}
                             setCourse={setCourse}
                             addNewCourse={addNewCourse}
                             deleteCourse={deleteCourse}

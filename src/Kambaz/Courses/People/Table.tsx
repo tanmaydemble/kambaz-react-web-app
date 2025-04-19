@@ -7,8 +7,8 @@ import { useSelector } from "react-redux";
 
 export default function PeopleTable({ users = [] }: { users?: any[] }) {
     const { cid } = useParams();
-    console.log("trying to print cid");
-    console.log(cid);
+    // console.log("trying to print cid");
+    // console.log(cid);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const [courseUsers, setCourseUsers] = useState<any[]>([]);
     const isCoursePeoplePage = !!cid; // Check if we're on a course people page
