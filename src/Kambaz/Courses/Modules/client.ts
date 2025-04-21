@@ -1,7 +1,7 @@
 import axios from "axios";
-const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
+// const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
 const axiosWithCredentials = axios.create({ withCredentials: true });
-// export const REMOTE_SERVER = "http://localhost:4000";
+export const REMOTE_SERVER = "http://localhost:4000";
 const MODULES_API = `${REMOTE_SERVER}/api/modules`;
 export const deleteModule = async (moduleId: string) => {
     // console.log("inside client deleteModule");
